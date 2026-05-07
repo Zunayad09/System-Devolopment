@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --conf-high: #1D9E75;
+  --conf-med: #EF9F27;
+  --conf-low: #E24B4A;
+  --canvas-bg: #0B0F14;
+}
+
+* { box-sizing: border-box; }
+body { font-family: 'IBM Plex Sans', sans-serif; background: #F5F4F0; }
