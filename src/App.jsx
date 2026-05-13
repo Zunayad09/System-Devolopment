@@ -5,6 +5,7 @@ import UploadPage from './pages/UploadPage'
 import ResultsPage from './pages/ResultsPage'
 import ReviewQueuePage from './pages/ReviewQueuePage'
 import CorrectionPage from './pages/CorrectionPage'
+import ReAnnotatePage from './pages/ReAnnotatePage'
 import DashboardPage from './pages/DashboardPage'
 import Toast from './components/Toast'
 
@@ -36,6 +37,12 @@ export default function App() {
         <Route path="/correction/:caseId" element={
           <ProtectedRoute role="expert_reviewer">
             <CorrectionPage />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/re-annotate/:caseId" element={
+          <ProtectedRoute role="expert_reviewer">
+            <ReAnnotatePage />
           </ProtectedRoute>
         } />
 
