@@ -27,6 +27,10 @@ export const useCaseStore = create((set) => ({
   setOverlay: (key, val) =>
     set(s => ({ overlays: { ...s.overlays, [key]: val } })),
 
+  // Patient info (filled by sonologist)
+  patientInfo: null,
+  setPatientInfo: (info) => set({ patientInfo: info }),
+
   // Expert correction
   editedContour: null,
   setEditedContour: (pts) => set({ editedContour: pts }),

@@ -9,7 +9,7 @@ import { useCaseStore } from '../stores/useCaseStore'
 export default function CorrectionPage() {
   const { caseId } = useParams()
   const navigate = useNavigate()
-  const { prediction, setEditedContour, showToast } = useCaseStore()
+  const { prediction, patientInfo, setEditedContour, showToast } = useCaseStore()
   const [notes, setNotes] = useState('')
   const [saving, setSaving] = useState(false)
 
@@ -33,13 +33,22 @@ export default function CorrectionPage() {
     navigate(`/re-annotate/${caseId}`)
   }
 
+  // Fallback mock patient info for cases opened from review queue
+  const info = patientInfo || {
+    patientId: 'P-2042',
+    age: '52',
+    gender: 'Female',
+    date: '2026-05-13',
+    note: '',
+  }
+
   return (
     <AppShell
-      title={`Case #${caseId} — Expert Correction`}
+      title={`Case #${caseId} — Expert Review`}
       backTo="/review"
       backLabel="Review Queue">
 
-      <div className="grid grid-cols-[1fr_260px] gap-4">
+      <div className="grid grid-cols-[1fr_280px] gap-4">
 
         {/* Left — Canvas */}
         <CanvasViewer
@@ -53,6 +62,39 @@ export default function CorrectionPage() {
 
         {/* Right — panels */}
         <div className="space-y-3">
+
+          {/* Patient information */}
+          <div className="bg-white border border-border rounded-xl p-4">
+            <p className="text-[10px] font-mono font-semibold text-muted
+              uppercase tracking-wider mb-3">
+              Patient Information
+            </p>
+            <div className="space-y-2">
+              {[
+                { label: 'Patient ID', value: info.patientId },
+                { label: 'Age',        value: info.age ? `${info.age} yrs` : '—' },
+                { label: 'Gender',     value: info.gender },
+                { label: 'Date',       value: info.date },
+              ].map(({ label, value }) => (
+                <div key={label} className="flex justify-between items-baseline
+                  py-1 border-b border-border last:border-0">
+                  <span className="text-[10px] font-mono text-muted">{label}</span>
+                  <span className="text-xs font-semibold text-gray-800">{value || '—'}</span>
+                </div>
+              ))}
+              {info.note && (
+                <div className="pt-1">
+                  <p className="text-[10px] font-mono text-muted mb-1">
+                    Note from Sonologist
+                  </p>
+                  <p className="text-xs text-gray-700 bg-surface2 rounded-lg
+                    px-3 py-2 leading-relaxed">
+                    {info.note}
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
 
           {/* Analysis panel */}
           <div className="bg-white border border-border rounded-xl p-4">
